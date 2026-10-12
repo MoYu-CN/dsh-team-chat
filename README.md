@@ -19,6 +19,36 @@ DSH 官方的 **Agent Teams** 已经有具名 teammate、持久 mailbox、共享
 
 本插件补上第 1 点：把官方丢掉的消息事件接回来，做成一条实时时间线。
 
+## 界面
+
+### 聊天室时间线
+
+![聊天室时间线](docs/room-overview.png)
+
+*聊天室视图：左侧是成员时间线，底部输入框仍是宿主官方 composer。*
+*The chatroom view: the member timeline on the left, with the host's own composer kept at the bottom.*
+
+### 成员面板
+
+![成员面板](docs/members-panel.png)
+
+*成员面板：显示成员数与「添加 AI 成员」入口，每行可打开对话 / 编辑资料 / 移除。*
+*The members panel: member count, the "add AI member" entry, and per-row actions to open, edit or remove.*
+
+> 上面两张只示意面板形状 —— 成员名已被裁断/模糊，不是任何成员的真实名字。
+> Both images only show the panel's shape: the member name is cropped or blurred and is not any member's real name.
+
+### 设置 →「聊天室」
+
+![聊天室设置](docs/settings-row.png)
+
+*聊天室设置：我（发言人）的显示名与头像、官方 Agent Teams 开关（本插件不需要）、AI 成员配置。*
+*The chatroom settings row: the speaker's own name and avatar, the stock Agent Teams switch (not needed by this plugin), and the AI member list.*
+
+> 截图取自开发机上的实测界面：其中的成员名、署名与对话内容都是**虚构的测试数据**，不是插件的一部分。
+> These screenshots come from a real development machine: the member names, bylines and chat text
+> in them are **fictional test data**, not part of the plugin.
+
 ## 原理（一句话）
 
 注册一个**平行的** session projection，监听同一个事件流里的
