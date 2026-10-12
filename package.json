@@ -1,0 +1,77 @@
+{
+  "name": "dsh-team-chat",
+  "version": "0.1.0",
+  "description": "In-UI realtime collaboration room for Agent Teams: mailbox timeline, member avatars and @ dispatch.",
+  "type": "module",
+  "icon": "./icon.svg",
+  "main": "./lib/index.js",
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/client.js",
+    "lib/member-store.js",
+    "lib/room-log.js",
+    "lib/room-tools.js",
+    "lib/member-runtime.js",
+    "lib/succession.js",
+    "lib/team-bus.js",
+    "lib/timeline-projection.js",
+    "locale/*.json",
+    "icon.svg",
+    "cordis.patch.yml",
+    "LICENSE",
+    "README.md"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-api-remotes",
+        "@deepseek-ai/dsh-api-session-controller",
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-conversation",
+        "@deepseek-ai/dsh-client-ui-renderer",
+        "@deepseek-ai/dsh-client-ui-settings-general"
+      ],
+      "immediately": true,
+      "platform": "web"
+    }
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "agent-team",
+    "chat",
+    "multi-agent",
+    "chatroom",
+    "cordis-plugin"
+  ],
+  "engines": {
+    "node": "^22.19.0 || >=24.0.0"
+  },
+  "license": "MIT",
+  "meta": {
+    "title": {
+      "zh": "多AI 协作聊天室",
+      "en": "Team Chat"
+    },
+    "description": {
+      "zh": "嵌在 DSH 界面里的多 AI 实时协作聊天室：为 Agent Teams 补上 mailbox 时间线、成员头像与 @ 派发。",
+      "en": "In-UI realtime collaboration room for Agent Teams: mailbox timeline, member avatars and @ dispatch."
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MoYu-CN/dsh-team-chat.git"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "name": "dsh-team-chat",
+  "version": "0.1.0",
+  "description": "在 DSH 现有界面内的多 AI 实时协作聊天室：为 Agent Teams 补上 mailbox timeline、成员头像与 @ 派发。",
+  "type": "module",
+  "icon": "./icon.svg",
+  "main": "./lib/index.js",
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/client.js",
+    "lib/member-store.js",
+    "lib/room-log.js",
+    "lib/room-tools.js",
+    "lib/member-runtime.js",
+    "lib/succession.js",
+    "lib/team-bus.js",
+    "lib/timeline-projection.js",
+    "locale/*.json",
+    "icon.svg",
+    "cordis.patch.yml"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-api-remotes",
+        "@deepseek-ai/dsh-api-session-controller",
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-conversation",
+        "@deepseek-ai/dsh-client-ui-renderer",
+        "@deepseek-ai/dsh-client-ui-settings-general"
+      ],
+      "immediately": true,
+      "platform": "web"
+    }
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "agent-team",
+    "chat"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "license": "MIT",
+  "meta": {
+    "title": "多AI 协作聊天室",
+    "description": "把独立会话收编成AI 成员，成员间互发消息、共同汇报给主智能体。"
+  }
+}

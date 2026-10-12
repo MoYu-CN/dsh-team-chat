@@ -1,0 +1,80 @@
+
+== 预置：存量房间历史（room-timeline.json 里已有 2 条）==
+PASS 存量条目投影前可见
+     实际=["legacy-private-1","legacy-public-1"]
+     期望=["legacy-private-1","legacy-public-1"]
+
+== A1 私聊（人发的·无范围·主会话）→ 不该进房间 ==
+FAIL A1 私聊消息没有进房间时间线 :: 当前=["legacy-private-1","legacy-public-1","send-session-main-1-11"]
+
+== A2 私聊（AI 回的·无范围·成员没被叫过）→ 不该进房间 ==
+PASS A2 私聊回复没有进房间时间线 :: 当前=["legacy-private-1","legacy-public-1","send-session-main-1-11"]
+
+== B1 发给全体（有范围）→ 照常进 ==
+PASS B1 发给全体的消息进了房间
+PASS B1 收件人是房里全体成员
+     实际=["lead","beta","gamma"]
+     期望=["lead","beta","gamma"]
+PASS B1 已投递
+
+== B2 @ 某个成员（有范围）→ 照常进 ==
+PASS B2 @某个成员的消息进了房间
+PASS B2 收件人就是他
+     实际=["beta"]
+     期望=["beta"]
+
+== B2b 被房间叫过的成员回复 → 照常进 ==
+PASS B2b 成员回复进了房间
+PASS B2b 发言人是他自己
+     实际="beta"
+     期望="beta"
+
+== A3 私聊回合（成员已被房间叫过）→ 用户在成员窗口说话 + 它的回复都不进 ==
+PASS A3 私聊回合没进房间 :: 当前=["legacy-private-1","legacy-public-1","send-session-main-1-11","send-session-main-1-21","send-session-main-1-22","reply-session-beta-1-t3"]
+PASS A3 成员窗口里那句也没进房间 :: 当前=["legacy-private-1","legacy-public-1","send-session-main-1-11","send-session-main-1-21","send-session-main-1-22","reply-session-beta-1-t3"]
+
+== B3 在聊天室直接发（/__teamchat/send）→ 照常进 ==
+PASS B3 /send 返回 ok :: {"ok":true,"delivered":[{"name":"lead","ok":true,"status":"accepted"},{"name":"beta","ok":true,"status":"accepted"},{"name":"gamma","ok":true,"status":"accepted"}]}
+PASS B3 房间直发的消息进了房间
+     实际=1
+     期望=1
+PASS B3 收件人是房里全体成员
+     实际=["lead","beta","gamma"]
+     期望=["lead","beta","gamma"]
+
+== C AI 用 chatroom_send 的汇报 → 照常进 ==
+PASS C chatroom_send 工具已登记 :: 已登记=chatroom_read,chatroom_send
+PASS C 工具返回 ok :: {"ok":true,"text":"已发给「主智能体」。它会收到这条消息，聊天室里也会显示「你 → 主智能体」。"}
+PASS C 汇报进了房间
+     实际=1
+     期望=1
+PASS C 汇报是发给主智能体的
+     实际=["lead"]
+     期望=["lead"]
+
+== D 既有房间历史（存量）不被破坏 ==
+PASS D 存量条目还在（条数）
+     实际=2
+     期望=2
+PASS D 存量条目逐字段未变
+     实际=[{"id":"legacy-private-1","sender":"lead","targets":[],"delivered":false,"text":"（存量）私聊时我说的一句话"},{"id":"legacy-public-1","sender":"lead","targets":["beta"],"delivered":true,"text":"（存量）发给贝塔的一句话"}]
+     期望=[{"id":"legacy-private-1","sender":"lead","targets":[],"delivered":false,"text":"（存量）私聊时我说的一句话"},{"id":"legacy-public-1","sender":"lead","targets":["beta"],"delivered":true,"text":"（存量）发给贝塔的一句话"}]
+   投影前后：前 2 条 → 后 8 条
+   新增：["send-session-main-1-11","send-session-main-1-21","send-session-main-1-22","reply-session-beta-1-t3","send-639224e0-b8bf-47ae-8c66-847a2d6a3223","tool-beta-31cc11b7-1a3d-41b7-8639-0683d166b78f"]
+
+== D2 落盘的房间历史（room-timeline.json）==
+FAIL D2 落盘里没有私聊消息 :: ["legacy-private-1","legacy-public-1","send-session-main-1-11","send-session-main-1-21","send-session-main-1-22","reply-session-beta-1-t3","send-639224e0-b8bf-47ae-8c66-847a2d6a3223","tool-beta-31cc11b7-1a3d-41b7-8639-0683d166b78f"]
+PASS D2 落盘里没有私聊回复 :: ["legacy-private-1","legacy-public-1","send-session-main-1-11","send-session-main-1-21","send-session-main-1-22","reply-session-beta-1-t3","send-639224e0-b8bf-47ae-8c66-847a2d6a3223","tool-beta-31cc11b7-1a3d-41b7-8639-0683d166b78f"]
+PASS D2 落盘里保留了存量条目 :: ["legacy-private-1","legacy-public-1","send-session-main-1-11","send-session-main-1-21","send-session-main-1-22","reply-session-beta-1-t3","send-639224e0-b8bf-47ae-8c66-847a2d6a3223","tool-beta-31cc11b7-1a3d-41b7-8639-0683d166b78f"]
+PASS D2 落盘里保留了房间直发 :: ["legacy-private-1","legacy-public-1","send-session-main-1-11","send-session-main-1-21","send-session-main-1-22","reply-session-beta-1-t3","send-639224e0-b8bf-47ae-8c66-847a2d6a3223","tool-beta-31cc11b7-1a3d-41b7-8639-0683d166b78f"]
+   落盘 id 一览：["legacy-private-1","legacy-public-1","send-session-main-1-11","send-session-main-1-21","send-session-main-1-22","reply-session-beta-1-t3","send-639224e0-b8bf-47ae-8c66-847a2d6a3223","tool-beta-31cc11b7-1a3d-41b7-8639-0683d166b78f"]
+
+宿主日志：
+   [info] team-chat: 已登记 2 个聊天室工具（chatroom_read / chatroom_send）
+   [info] team-chat: 成员资料已加载 4 条
+   [info] team-chat: 聊天记录已恢复 1 个房间 / 2 条
+
+投递次数（steer 调用）：8
+
+== 结果：2 项失败 ==
+FAIL — 2 项断言失败

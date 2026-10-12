@@ -1,0 +1,4 @@
+- insert:
+    - id: team-chat
+      name: dsh-team-chat
+      inject: [webServer, sessionProjections]
