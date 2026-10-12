@@ -1,6 +1,7 @@
 {
   "name": "dsh-team-chat",
   "version": "0.1.0",
+  "author": "MoYu-CN",
   "description": "In-UI realtime collaboration room for Agent Teams: mailbox timeline, member avatars and @ dispatch.",
   "type": "module",
   "icon": "./icon.svg",
