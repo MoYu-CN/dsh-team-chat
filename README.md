@@ -1,12 +1,41 @@
 # dsh-team-chat
 
 > **English summary** — A multi-AI collaboration chatroom inside the existing DSH (DeepSeek Harness) UI: it restores the mailbox timeline that the stock Agent Teams wire projection drops, and adds member avatars and `@` dispatch.
-> **Install:** reference this folder from your DSH profile (`"dsh-team-chat": "link:<your dir>/dsh-team-chat"`), then restart DSH for the host half and reload the page for the client half.
+> **Install:** `dsh plugin add dsh-team-chat` (recommended, from npm). The tarball and from-source alternatives are in the 安装 / Install section below. Then restart DSH for the host half and reload the page for the client half.
 > **Highlights:** realtime mailbox timeline, member roster with avatars, `@` dispatch to one member, and the `chatroom_read` / `chatroom_send` tools.
 > **Language:** the settings UI follows the host language setting — Chinese and English dictionaries are both built in. **Model-facing prompts stay in Chinese** by design.
 > **License:** MIT.
 
 给 DSH（DeepSeek Harness）桌面端写的插件：在**现有界面内**提供多 AI 实时协作聊天室。
+
+## 安装 / Install
+
+**✅ 推荐 / Recommended —— 从 npm 安装（用包名，不要手抄 tarball 地址）：**
+
+```bash
+dsh plugin add dsh-team-chat
+```
+
+*装完按提示重启 DSH；客户端那一半刷新页面即可生效。*
+*Restart DSH when prompted; reload the page for the client half.*
+
+### 备选方式 / Alternatives
+
+**① tarball —— 直接装打包文件 / install the packed tarball**
+
+```bash
+dsh plugin add https://registry.npmjs.org/dsh-team-chat/-/dsh-team-chat-0.1.0.tgz
+```
+
+**② 源码 —— clone 后把本地目录链接进 profile / from source: clone and link the folder**
+
+```bash
+git clone https://github.com/MoYu-CN/dsh-team-chat.git
+dsh plugin add "link:<你的目录>/dsh-team-chat"
+```
+
+`link:` 不拷贝、直接软链，改代码立刻生效 —— 适合要改插件本身的场景。
+`link:` symlinks instead of copying, so local edits take effect immediately — use it when you want to modify the plugin itself.
 
 ## 它解决什么
 
@@ -751,7 +780,12 @@ cannot get property "uiSession" without inject
 
 **[10] `package.json` 不能有 `peerDependencies`** —— 见下面「安装」章节的迁移坑。
 
-## 安装
+## 安装（源码 / `link:` 方式细节）
+
+> 推荐方式见开头「安装 / Install」小节：`dsh plugin add dsh-team-chat`（npm 包名）。
+> The recommended way is the 安装 / Install section at the top: `dsh plugin add dsh-team-chat`.
+> 本节只讲**源码 / `link:` 方式**的细节，以及实测踩过的坑。
+> This section only covers the from-source (`link:`) details and the pitfalls hit in practice.
 
 ```sh
 dsh plugin --profile web add "link:D:\AI同步插件\dsh-team-chat"
